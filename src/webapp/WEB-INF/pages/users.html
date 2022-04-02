@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<body>
+    <h1>This is the home page of the app</h1>
+
+    <div>
+        <table>
+            <tr>
+                <th>first name</th>
+                <th>last name</th>
+                <th>phone number</th>
+            </tr>
+            <th:block th:each="user : ${userList}">
+                <tr>
+                    <td th:text="${user.getFirstName()}"></td>
+                    <td th:text="${user.getLastName()}"></td>
+                    <td th:text="${user.getPhoneNumber()}"></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+</body>
+</html>
