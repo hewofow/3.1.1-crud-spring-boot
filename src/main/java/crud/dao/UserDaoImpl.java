@@ -1,6 +1,6 @@
-package dao;
+package crud.dao;
 
-import model.User;
+import crud.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +17,34 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void add(User user) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
+        sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
-    public void remove(User user) {
-//        sessionFactory.getCurrentSession().delete(user);
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(user);
-        session.getTransaction().commit();
+    public void remove(long id) {
+        sessionFactory.getCurrentSession().createQuery("DELETE FROM User u WHERE u.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
+
+    @Override
+    public User getById(long id) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
     public void update(User user) {
-//        sessionFactory.getCurrentSession().saveOrUpdate(user);
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.saveOrUpdate(user);
-        session.getTransaction().commit();
+        sessionFactory.getCurrentSession()
+                .createQuery("UPDATE User SET firstName = :firstName, lastName = :lastName, " +
+                        "phoneNumber = :phoneNumber WHERE id = :id")
+                .setParameter("firstName", user.getFirstName())
+                .setParameter("lastName", user.getLastName())
+                .setParameter("phoneNumber", user.getPhoneNumber())
+                .setParameter("id", user.getId())
+                .executeUpdate();
     }
 
     @Override

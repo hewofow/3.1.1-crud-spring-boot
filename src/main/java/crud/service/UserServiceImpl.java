@@ -1,7 +1,7 @@
-package service;
+package crud.service;
 
-import dao.UserDao;
-import model.User;
+import crud.dao.UserDao;
+import crud.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void remove(User user) {
-        userDao.remove(user);
+    public void remove(long id) {
+        userDao.remove(id);
     }
 
     @Transactional
@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         userDao.update(user);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User getById(long id) { return userDao.getById(id); }
 
     @Transactional(readOnly = true)
     @Override

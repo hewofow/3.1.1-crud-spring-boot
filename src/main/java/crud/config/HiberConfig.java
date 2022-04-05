@@ -1,6 +1,6 @@
-package config;
+package crud.config;
 
-import model.User;
+import crud.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +18,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan("java")
+@ComponentScan("crud")
 public class HiberConfig {
     @Autowired
     private Environment env;
@@ -42,6 +42,7 @@ public class HiberConfig {
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+//        props.put("spring.jpa.database-platform", "org.hibernate.dialect");
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setAnnotatedClasses(User.class);
