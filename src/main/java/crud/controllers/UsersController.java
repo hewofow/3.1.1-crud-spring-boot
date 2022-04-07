@@ -1,12 +1,12 @@
-package crud.controller;
+package crud.controllers;
 
-import crud.model.User;
+import crud.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import crud.service.UserService;
+import crud.services.UserService;
 
 @Controller
 @RequestMapping("/users")

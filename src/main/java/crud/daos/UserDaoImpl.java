@@ -1,44 +1,47 @@
-package crud.dao;
+package crud.daos;
 
-import crud.model.User;
+import crud.models.User;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
+//    public void add(User user) {
+//        entityManager.getCurrentSession().save(user);
+//    }
     public void add(User user) {
-        sessionFactory.getCurrentSession().save(user);
-    }
+        entityManager.persist(user);
+    }  /////////////////////////////////////
 
     @Override
     public void remove(long id) {
-        sessionFactory.getCurrentSession().createQuery("DELETE FROM User u WHERE u.id = :id")
+        entityManager.createQuery("DELETE FROM User u WHERE u.id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
     }
 
     @Override
     public User getById(long id) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }
 
     @Override
     public void update(User user) {
-        sessionFactory.getCurrentSession()
-                .createQuery("UPDATE User SET firstName = :firstName, lastName = :lastName, " +
+        entityManager.createQuery("UPDATE User SET firstName = :firstName, lastName = :lastName, " +
                         "phoneNumber = :phoneNumber WHERE id = :id")
                 .setParameter("firstName", user.getFirstName())
                 .setParameter("lastName", user.getLastName())
@@ -49,10 +52,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> listUsers() {
-        return sessionFactory.getCurrentSession().createQuery("FROM User", User.class).getResultList();
+        return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
     @PostConstruct
+    @Transactional
     public void initDataBase() {
         List<User> list = new ArrayList<>();
         list.add(new User("Vasya", "Ivanov", "1000000001"));
@@ -61,11 +65,8 @@ public class UserDaoImpl implements UserDao {
         list.add(new User("Johan", "Kek", "4000000004"));
         list.add(new User("Pepa", "Josefina", "5000000005"));
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
         for (User user : list) {
-            session.save(user);
+            entityManager.persist(user);
         }
-        session.getTransaction().commit();
     }
 }

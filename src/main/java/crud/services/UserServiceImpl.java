@@ -1,7 +1,7 @@
-package crud.service;
+package crud.services;
 
-import crud.dao.UserDao;
-import crud.model.User;
+import crud.daos.UserDao;
+import crud.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
