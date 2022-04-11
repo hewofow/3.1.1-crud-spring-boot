@@ -1,6 +1,5 @@
 package crud.config;
 
-import crud.daos.AppListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +11,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -66,8 +64,7 @@ public class HiberConfig {
         props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
 
         factoryBean.setJpaProperties(props);
-        factoryBean.setPersistenceUnitName("myJpaPersistenceUnit");
-        factoryBean.setPackagesToScan("models");
+        factoryBean.setPackagesToScan("crud.models");
         return factoryBean;
     }
 
