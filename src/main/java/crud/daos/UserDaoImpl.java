@@ -1,8 +1,6 @@
 package crud.daos;
 
 import crud.models.User;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,18 +56,17 @@ public class UserDaoImpl implements UserDao {
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
-    @PostConstruct
-    @Transactional
-    public void initDataBase() {
-        List<User> list = new ArrayList<>();
-        list.add(new User("Vasya", "Ivanov", "1000000001"));
-        list.add(new User("Petya", "Golovach", "2000000002"));
-        list.add(new User("Bob", "Sponge", "3000000003"));
-        list.add(new User("Johan", "Kek", "4000000004"));
-        list.add(new User("Pepa", "Josefina", "5000000005"));
-
-        for (User user : list) {
-            entityManager.persist(user);
-        }
-    }
+//    @Transactional
+//    public void initDataBase() {
+//        List<User> list = new ArrayList<>();
+//        list.add(new User("Vasya", "Ivanov", "1000000001"));
+//        list.add(new User("Petya", "Golovach", "2000000002"));
+//        list.add(new User("Bob", "Sponge", "3000000003"));
+//        list.add(new User("Johan", "Kek", "4000000004"));
+//        list.add(new User("Pepa", "Josefina", "5000000005"));
+//
+//        for (User user : list) {
+//            entityManager.persist(user);
+//        }
+//    }
 }

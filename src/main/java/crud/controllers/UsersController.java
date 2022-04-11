@@ -11,8 +11,12 @@ import crud.services.UserService;
 @Controller
 @RequestMapping("/users")
 public class UsersController {
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping()
     public String showTable(ModelMap model) {
