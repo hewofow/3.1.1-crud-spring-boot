@@ -5,31 +5,15 @@ import crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 public class AppListener {
-    private UserService userService;
-    List<User> list;
 
     @Autowired
     public AppListener(UserService userService) {
-        this.userService = userService;
-    }
-
-    @PostConstruct
-    public void initList() {
-        list = new ArrayList<>();
-        list.add(new User("Vasya", "Ivanov", "1000000001"));
-        list.add(new User("Petya", "Golovach", "2000000002"));
-        list.add(new User("Bob", "Sponge", "3000000003"));
-        list.add(new User("Johan", "Kek", "4000000004"));
-        list.add(new User("Pepa", "Josefina", "5000000005"));
-
-        for (User user : list) {
-            this.userService.add(user);
-        }
+        userService.add(new User("Vasya", "Ivanov", "1000000001"));
+        userService.add(new User("Petya", "Golovach", "2000000002"));
+        userService.add(new User("Bob", "Sponge", "3000000003"));
+        userService.add(new User("Johan", "Kek", "4000000004"));
+        userService.add(new User("Pepa", "Josefina", "5000000005"));
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import crud.services.UserService;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/users")
@@ -19,7 +20,7 @@ public class UsersController {
     }
 
     @GetMapping()
-    public String showTable(ModelMap model) {
+    public String showTable(Model model) {
         model.addAttribute("userList", userService.listUsers());
         return "users";
     }
