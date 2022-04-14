@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService {
     public List<User> listUsers() { return userRepository.findAll(); }
 
     @PostConstruct
-    @Transactional
     void initDataBase() {
         userRepository.save(new User("Vasya", "Ivanov", "1000000001"));
         userRepository.save(new User("Petya", "Golovach", "2000000002"));

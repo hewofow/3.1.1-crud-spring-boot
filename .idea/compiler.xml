@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="crud-app-2.3.1" options="" />
+      <module name="crud-app-2.3.1" options="-parameters" />
     </option>
   </component>
 </project>
